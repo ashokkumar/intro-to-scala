@@ -86,7 +86,7 @@ object TypesExercises {
     * *********************************
     */
 
-  case class Wallet(amount: Double)
+  case class Wallet(amount: Double) extends AnyVal
 
   /**
     * scala> val wallet = Wallet(20.5)
