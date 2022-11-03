@@ -49,7 +49,7 @@ object TypesExercises {
     **/
   def showPerson1(person: Person): String =
     person match {
-      case Person(name, age) => s"${???} is ${???} years old"
+      case Person(name, age) => s"${person.name} is ${person.age} years old"
     }
 
   /**
@@ -58,7 +58,7 @@ object TypesExercises {
     * Hint: Navigate the Person class' fields using the "." operator
     */
   def showPerson2(person: Person): String =
-    s"${???} is ${???} years old"
+    s"${person.name} is ${person.age} years old"
 
   /**
     * Write a function that changes the age of a person.
@@ -72,7 +72,7 @@ object TypesExercises {
     *
     * Hint: Use the .copy method
     */
-  def changeAge(newAge: Int, person: Person): Person = ???
+  def changeAge(newAge: Int, person: Person): Person = Person(person.name, newAge)
 
   /**
     * Let's look at another data type.
@@ -95,7 +95,7 @@ object TypesExercises {
     *
     * You can solve this like how you solved `showPerson1` or `showPerson2`.
     */
-  def showWallet(wallet: Wallet): String = ???
+  def showWallet(wallet: Wallet): String = s"The wallet amount is ${wallet.amount}"
 
   /**
     * Here is another example of working with immutable values.
@@ -106,7 +106,7 @@ object TypesExercises {
     *
     * Hint: You need to calculate the new amount first.
     **/
-  def purchase(cost: Double, wallet: Wallet): Wallet = ???
+  def purchase(cost: Double, wallet: Wallet): Wallet = Wallet(wallet.amount - cost)
 
   /**
     * *********************************************
@@ -187,6 +187,8 @@ object TypesExercises {
 
   case object Green extends TrafficLight
 
+  
+  
   /**
     * scala> showTrafficLight(Red)
     * > "The traffic light is red"

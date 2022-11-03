@@ -24,7 +24,11 @@ object TypesExercisesADT {
     * Implement Command: Move
     *
     */
-  def move(command: Command): Option[String] = ???
+  def move(command: Command): Option[String] = command match {
+    case Command(Some(x), None) => Some(s"Move by $x meters")
+    case Command(None, Some(x)) => Some(s"Rotate by $x degree")
+    case _ => None
+  }
 
 
   /**
@@ -39,5 +43,9 @@ object TypesExercisesADT {
     * Ref the test and use Move, Rotate and Stop and
     * implement move(sumTypeCommand: CommandSumType) function
     */
-  def move(sumTypeCommand: CommandSumType): String = ???
+  def move(sumTypeCommand: CommandSumType): String = sumTypeCommand match {
+    case Move(x) => s"Move by $x meters"
+    case Rotate(x) => s"Rotate by $x degree"
+    case Stop => "Stopped"
+  }
 }
