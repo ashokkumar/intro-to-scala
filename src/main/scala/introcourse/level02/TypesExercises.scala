@@ -140,7 +140,13 @@ object TypesExercises {
   /**
     * Implement the following showTrafficLightStr function to pass all your tests!
     */
-  def showTrafficLightStr(trafficLight: String): String = ???
+  def showTrafficLightStr(trafficLight: String): String = trafficLight match {
+    case "red" => "The traffic light is red"
+    case "green" => "The traffic light is green"
+    case "yellow" => "The traffic light is yellow"
+    case "flashing" => "The traffic light is flashing"
+    case _ => "The traffic light is invalid"
+  }
 
 
   /**
@@ -187,8 +193,10 @@ object TypesExercises {
 
   case object Green extends TrafficLight
 
-  
-  
+  case object Flashing extends TrafficLight
+
+
+
   /**
     * scala> showTrafficLight(Red)
     * > "The traffic light is red"
@@ -204,7 +212,12 @@ object TypesExercises {
     * Hint: Use pattern matching
     **/
 
-  def showTrafficLight(trafficLight: TrafficLight): String = ???
+  def showTrafficLight(trafficLight: TrafficLight): String = trafficLight match {
+    case Red => "The traffic light is red"
+    case Green => "The traffic light is green"
+    case Yellow => "The traffic light is yellow"
+    case Flashing => "The traffic light is flashing"
+  }
 
   /**
     * *********************************************************
