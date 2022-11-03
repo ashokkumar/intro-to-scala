@@ -28,13 +28,16 @@ object TypesExercisesADT {
 
 
   /**
-    * Now refactor the Command to a Sum Type ADT
+    * Command as Sum Type ADT
     */
-
-
+  sealed trait CommandSumType
+  case class Move(x: Int) extends CommandSumType
+  case class Rotate(x: Int) extends CommandSumType
+  case object Stop extends CommandSumType
   /**
-    * Implement function now
+    *
+    * Ref the test and use Move, Rotate and Stop and
+    * implement move(sumTypeCommand: CommandSumType) function
     */
-
-  def simpleMove(sumTypeCommand: Command): String = ???
+  def move(sumTypeCommand: CommandSumType): String = ???
 }
