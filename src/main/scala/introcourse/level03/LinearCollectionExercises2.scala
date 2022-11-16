@@ -1,7 +1,7 @@
 package introcourse.level03
 
 /**
-  * These exercises will teach you how to work with the `Set` data structure in Scala in a declarative manner.
+  * These exercises will teach you how to work with the `Vector` data structure in Scala in a declarative manner.
   */
 object LinearCollectionExercises2 {
 
