@@ -1,10 +1,10 @@
 package introcourse.level03
 
-import introcourse.level03.ListExercises._
+import introcourse.level03.LinearCollectionExercises3._
 import org.scalactic.TypeCheckedTripleEquals
 import org.scalatest.funspec.AnyFunSpec
 
-class ListExercisesTest extends AnyFunSpec with TypeCheckedTripleEquals {
+class LinearCollectionExercises3Test extends AnyFunSpec with TypeCheckedTripleEquals {
 
   describe("prependToList") {
 
@@ -122,7 +122,7 @@ class ListExercisesTest extends AnyFunSpec with TypeCheckedTripleEquals {
   describe("showEveryNthPerson") {
 
     it("should show every Nth person") {
-      val people = ListExercises.peopleList
+      val people = LinearCollectionExercises3.peopleList
       val all = people.map(showPerson)
 
       assert(showEveryNthPerson(-5, people) === all)
