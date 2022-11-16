@@ -1,10 +1,10 @@
 package introcourse.level03
 
-import introcourse.level03.SeqExercises.{append, merge, prepend}
+import introcourse.level03.LinearCollectionExercises1.{append, merge, prepend}
 import org.scalactic.TypeCheckedTripleEquals
 import org.scalatest.funspec.AnyFunSpec
 
-class SeqExercisesTest extends AnyFunSpec with TypeCheckedTripleEquals {
+class LinearCollectionExercises1Test extends AnyFunSpec with TypeCheckedTripleEquals {
   describe("seq") {
 
     it("should prepend given element") {

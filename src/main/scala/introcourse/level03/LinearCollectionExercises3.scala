@@ -4,7 +4,7 @@ package introcourse.level03
   * These exercises will teach you how to work with the `List` data structure in Scala in a declarative manner.
   * At the end of these exercises, you should have a good intuition on when to use `map`, `filter` or `fold`.
   */
-object ListExercises {
+object LinearCollectionExercises3 {
 
   /**
     * A `List` in Scala is a linked list.

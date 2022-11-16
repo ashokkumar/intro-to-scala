@@ -3,7 +3,7 @@ package introcourse.level03
 /**
   * These exercises will teach you how to work with the `Set` data structure in Scala in a declarative manner.
   */
-object SeqExercises {
+object LinearCollectionExercises1 {
 
   /**
     * A `Seq` in Scala is a trait equivalent of List in Java.
