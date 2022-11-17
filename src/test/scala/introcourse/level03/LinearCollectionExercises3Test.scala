@@ -118,24 +118,7 @@ class LinearCollectionExercises3Test extends AnyFunSpec with TypeCheckedTripleEq
       )
     }
   }
-
-  describe("showEveryNthPerson") {
-
-    it("should show every Nth person") {
-      val people = LinearCollectionExercises3.peopleList
-      val all = people.map(showPerson)
-
-      assert(showEveryNthPerson(-5, people) === all)
-      assert(showEveryNthPerson(0, people)  === all)
-      assert(showEveryNthPerson(1, people)  === all)
-      assert(showEveryNthPerson(2, people)  === List("Karen Page is 27 years old", "Claire Temple is 32 years old", "Elektra Natchios is 27 years old"))
-      assert(showEveryNthPerson(3, people)  === List("Franklin 'Foggy' Nelson is 31 years old", "Elektra Natchios is 27 years old"))
-      assert(showEveryNthPerson(5, people)  === List("Wilson Fisk is 42 years old"))
-      assert(showEveryNthPerson(6, people)  === List("Elektra Natchios is 27 years old"))
-      assert(showEveryNthPerson(8, people)  === Nil)
-    }
-  }
-
+  
   describe("getNames") {
 
     it("should return the names of all persons") {
@@ -155,25 +138,4 @@ class LinearCollectionExercises3Test extends AnyFunSpec with TypeCheckedTripleEq
     }
 
   }
-
-  describe("reverseList") {
-
-    it("should return the input list reversed") {
-      val inputList = List(1, 2, 3)
-      val result = reverseList(inputList)
-      assert(result === List(3, 2, 1))
-    }
-
-  }
-
-  describe("sublists") {
-
-    it("should pack consecutive duplicates of list elements into sublists") {
-      val inputList = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-      val result = sublists(inputList)
-      assert(result === List(List("a", "a", "a", "a"), List("b"), List("c", "c"), List("a", "a"), List("d"), List("e", "e", "e", "e")))
-    }
-
-  }
-
 }

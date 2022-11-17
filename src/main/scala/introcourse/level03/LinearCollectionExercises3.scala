@@ -154,8 +154,7 @@ object LinearCollectionExercises3 {
       Person("Karen Page", 27),
       Person("Franklin 'Foggy' Nelson", 31),
       Person("Claire Temple", 32),
-      Person("Wilson Fisk", 42),
-      Person("Elektra Natchios", 27)
+      Person("Wilson Fisk", 42)
     )
 
   /**
@@ -193,28 +192,7 @@ object LinearCollectionExercises3 {
     * Hint: Use `zipWithIndex`
     */
   def personWithIndex(people: List[Person]): List[(Person, Int)] = ???
-
-  /**
-    * Log every nth person from the `peopleList` given an index `n`.
-    *
-    * scala> showEveryNthPerson(2, peopleList)
-    * > List("Karen Page is 27 years old", "Claire Temple is 32 years old", "Elektra Natchios is 27 years old")
-    *
-    * Validation rules:
-    *
-    * If `n` is zero or less then return the full List
-    * If `n` is greater than the length of the list then return an empty List
-    *
-    * Hint: Use `personWithIndex`, `filter` and `showPerson`.
-    *
-    */
-  def showEveryNthPerson(n: Int, persons: List[Person]): List[String] = ???
-
-  private[level03] def showPerson(person: Person): String =
-    person match {
-      case Person(a, b) => s"$a is $b years old"
-    }
-
+  
   /**
     * Bonus exercises!
     */
@@ -245,28 +223,4 @@ object LinearCollectionExercises3 {
     }
     adults
   }
-
-
-  /**
-    * Rewrite this function that uses mutable variables and for-loop in an immutable fashion
-    *
-    * Don't use `.reverse` because that's cheating ;)
-    */
-  @SuppressWarnings(Array("org.wartremover.warts.Var"))
-  def reverseList[A](xs: List[A]): List[A] = {
-    var result: List[A] = Nil
-    for (x <- xs) {
-      result = x :: result
-    }
-    result
-  }
-
-  /**
-    * Pack consecutive duplicates of list elements into sublists.
-    * If a list contains repeated elements they should be placed in separate sublists.
-    *
-    * Given: val l1 = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-    * sublists(l1) == List(List("a", "a", "a", "a"), List("b"), List("c", "c"), List("a", "a"), List("d"), List("e", "e", "e", "e"))
-    */
-  def sublists[A](xs: List[A]): List[List[A]] = ???
 }
