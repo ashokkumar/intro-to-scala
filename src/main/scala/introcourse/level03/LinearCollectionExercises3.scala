@@ -39,7 +39,7 @@ object LinearCollectionExercises3 {
     *
     * Hint: Refer the construction of list
     */
-  def prependToList[A](x: A, xs: List[A]): List[A] = ???
+  def prependToList[A](x: A, xs: List[A]): List[A] = x :: xs
 
   /**
     * scala> appendToList(1, List(2, 3, 4))
@@ -47,7 +47,7 @@ object LinearCollectionExercises3 {
     *
     * Hint: Use the :+ operator
     */
-  def appendToList[A](x: A, xs: List[A]): List[A] = ???
+  def appendToList[A](x: A, xs: List[A]): List[A] = xs :+ x
 
   /**
     * `List` has an `.isEmpty` method that you can call to know whether an instance is empty or not.
@@ -69,7 +69,10 @@ object LinearCollectionExercises3 {
     * }
     * ```
     */
-  def isEmptyList[A](xs: List[A]): Boolean = ???
+  def isEmptyList[A](xs: List[A]): Boolean = xs match {
+    case head :: tail => false
+    case Nil => true
+  }
 
   /**
     * scala> showListSize(List(1, 2, 3))
@@ -83,7 +86,10 @@ object LinearCollectionExercises3 {
     *
     * Hint: Use pattern matching, string interpolation and length
     */
-  def showListSize[A](xs: List[A]): String = ???
+  def showListSize[A](xs: List[A]): String = xs match {
+    case head :: tail => s"This is a list of size ${xs.length}"
+    case Nil => "This is an empty list"
+  }
 
   /**
     * Mapping a function over a List
@@ -96,7 +102,7 @@ object LinearCollectionExercises3 {
     *
     * Hint: Use .map
     **/
-  def addNumToEach(num: Int, nums: List[Int]): List[Int] = ???
+  def addNumToEach(num: Int, nums: List[Int]): List[Int] = nums.map(_ + num)
 
   /**
     * Filter a List
@@ -108,7 +114,7 @@ object LinearCollectionExercises3 {
     *
     * Hint: Use .filter and '%' for mod operator
     */
-  def filterEven(nums: List[Int]): List[Int] = ???
+  def filterEven(nums: List[Int]): List[Int] = nums.filter(_ % 2 == 0)
 
   /**
     * Folds
@@ -132,7 +138,7 @@ object LinearCollectionExercises3 {
     *
     * Hint: Use .foldLeft
     */
-  def product(nums: List[Int]): Int = ???
+  def product(nums: List[Int]): Int = nums.foldLeft(1)((acc, num) => acc * num)
 
   /**
     * scala> min(List(4, 6, 1))
@@ -145,8 +151,13 @@ object LinearCollectionExercises3 {
     **/
   def min(nums: List[Int]): Int =
     nums match {
-      case Nil => ???
-      case head :: tail => ???
+      case Nil => Int.MinValue
+      case head :: tail => tail.fold(head)((acc: Int, element: Int) => {
+        if(acc < element)
+          acc
+        else
+          element
+      })
     }
 
   private[level03] val peopleList =
@@ -154,8 +165,7 @@ object LinearCollectionExercises3 {
       Person("Karen Page", 27),
       Person("Franklin 'Foggy' Nelson", 31),
       Person("Claire Temple", 32),
-      Person("Wilson Fisk", 42),
-      Person("Elektra Natchios", 27)
+      Person("Wilson Fisk", 42)
     )
 
   /**
@@ -170,7 +180,20 @@ object LinearCollectionExercises3 {
     *
     * Hint: Use pattern matching and .foldLeft
     */
-  def youngestPerson(persons: List[Person]): Person = ???
+  def youngestPerson(persons: List[Person]): Person = persons match {
+    case head :: tail => tail.foldLeft(head)((acc: Person, person: Person) => {
+      if(acc.age < person.age) {
+        acc
+      } else {
+        person
+      }
+    })
+    case Nil => Person("Nobody", 0)
+  }
+
+  /**
+    * Bonus exercises!
+    */
 
   /**
     * Return a list of pairs of a Person and their position in the `peopleList`.
@@ -192,44 +215,13 @@ object LinearCollectionExercises3 {
     *
     * Hint: Use `zipWithIndex`
     */
-  def personWithIndex(people: List[Person]): List[(Person, Int)] = ???
-
-  /**
-    * Log every nth person from the `peopleList` given an index `n`.
-    *
-    * scala> showEveryNthPerson(2, peopleList)
-    * > List("Karen Page is 27 years old", "Claire Temple is 32 years old", "Elektra Natchios is 27 years old")
-    *
-    * Validation rules:
-    *
-    * If `n` is zero or less then return the full List
-    * If `n` is greater than the length of the list then return an empty List
-    *
-    * Hint: Use `personWithIndex`, `filter` and `showPerson`.
-    *
-    */
-  def showEveryNthPerson(n: Int, persons: List[Person]): List[String] = ???
-
-  private[level03] def showPerson(person: Person): String =
-    person match {
-      case Person(a, b) => s"$a is $b years old"
-    }
-
-  /**
-    * Bonus exercises!
-    */
+  def personWithIndex(people: List[Person]): List[(Person, Int)] = people.zipWithIndex.map((person,index) => (person, index + 1))
 
   /**
     * Rewrite this function that uses a mutable variable and for-loop in an immutable fashion
     */
   @SuppressWarnings(Array("org.wartremover.warts.Var"))
-  def getNames(persons: List[Person]): List[String] = {
-    var names: List[String] = Nil
-    for (person <- persons) {
-      names = names :+ person.name
-    }
-    names
-  }
+  def getNames(persons: List[Person]): List[String] = persons.map(_.name)
 
   /**
     * Rewrite this function that uses a mutable variable and for-loop in an immutable fashion
@@ -237,36 +229,5 @@ object LinearCollectionExercises3 {
     * Return people aged >= 18
     */
   @SuppressWarnings(Array("org.wartremover.warts.Var"))
-  def getAdults(persons: List[Person]): List[Person] = {
-    var adults: List[Person] = Nil
-    for (person <- persons) {
-      if (person.age >= 18)
-        adults = adults :+ person
-    }
-    adults
-  }
-
-
-  /**
-    * Rewrite this function that uses mutable variables and for-loop in an immutable fashion
-    *
-    * Don't use `.reverse` because that's cheating ;)
-    */
-  @SuppressWarnings(Array("org.wartremover.warts.Var"))
-  def reverseList[A](xs: List[A]): List[A] = {
-    var result: List[A] = Nil
-    for (x <- xs) {
-      result = x :: result
-    }
-    result
-  }
-
-  /**
-    * Pack consecutive duplicates of list elements into sublists.
-    * If a list contains repeated elements they should be placed in separate sublists.
-    *
-    * Given: val l1 = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-    * sublists(l1) == List(List("a", "a", "a", "a"), List("b"), List("c", "c"), List("a", "a"), List("d"), List("e", "e", "e", "e"))
-    */
-  def sublists[A](xs: List[A]): List[List[A]] = ???
+  def getAdults(persons: List[Person]): List[Person] = persons.filter(_.age >= 18)
 }

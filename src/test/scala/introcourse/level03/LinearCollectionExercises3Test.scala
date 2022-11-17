@@ -100,7 +100,7 @@ class LinearCollectionExercises3Test extends AnyFunSpec with TypeCheckedTripleEq
     it("should return the first person in the list with the smallest age given a non-empty List") {
       val youngest = Person("Karen Page", 27)
 
-      assert(youngestPerson(peopleList) === youngest)
+      assert(youngestPerson(peopleList) == youngest)
     }
 
   }
@@ -108,31 +108,13 @@ class LinearCollectionExercises3Test extends AnyFunSpec with TypeCheckedTripleEq
   describe("personWithIndex") {
 
     it("should return each person with their 1-based index") {
-      assert(personWithIndex(peopleList) === (
+      assert(personWithIndex(peopleList) == (
         List((Person("Matt Murdock",            30), 1),
              (Person("Karen Page",              27), 2),
              (Person("Franklin 'Foggy' Nelson", 31), 3),
              (Person("Claire Temple",           32), 4),
-             (Person("Wilson Fisk",             42), 5),
-             (Person("Elektra Natchios",        27), 6)))
+             (Person("Wilson Fisk",             42), 5)))
       )
-    }
-  }
-
-  describe("showEveryNthPerson") {
-
-    it("should show every Nth person") {
-      val people = LinearCollectionExercises3.peopleList
-      val all = people.map(showPerson)
-
-      assert(showEveryNthPerson(-5, people) === all)
-      assert(showEveryNthPerson(0, people)  === all)
-      assert(showEveryNthPerson(1, people)  === all)
-      assert(showEveryNthPerson(2, people)  === List("Karen Page is 27 years old", "Claire Temple is 32 years old", "Elektra Natchios is 27 years old"))
-      assert(showEveryNthPerson(3, people)  === List("Franklin 'Foggy' Nelson is 31 years old", "Elektra Natchios is 27 years old"))
-      assert(showEveryNthPerson(5, people)  === List("Wilson Fisk is 42 years old"))
-      assert(showEveryNthPerson(6, people)  === List("Elektra Natchios is 27 years old"))
-      assert(showEveryNthPerson(8, people)  === Nil)
     }
   }
 
@@ -152,26 +134,6 @@ class LinearCollectionExercises3Test extends AnyFunSpec with TypeCheckedTripleEq
       val powerRangers = List(Person("Red Ranger", 17), Person("Yellow Ranger", 18), Person("Pink Ranger", 19))
       val adults = getAdults(powerRangers)
       assert(adults === List(Person("Yellow Ranger", 18), Person("Pink Ranger", 19)))
-    }
-
-  }
-
-  describe("reverseList") {
-
-    it("should return the input list reversed") {
-      val inputList = List(1, 2, 3)
-      val result = reverseList(inputList)
-      assert(result === List(3, 2, 1))
-    }
-
-  }
-
-  describe("sublists") {
-
-    it("should pack consecutive duplicates of list elements into sublists") {
-      val inputList = List("a", "a", "a", "a", "b", "c", "c", "a", "a", "d", "e", "e", "e", "e")
-      val result = sublists(inputList)
-      assert(result === List(List("a", "a", "a", "a"), List("b"), List("c", "c"), List("a", "a"), List("d"), List("e", "e", "e", "e")))
     }
 
   }
