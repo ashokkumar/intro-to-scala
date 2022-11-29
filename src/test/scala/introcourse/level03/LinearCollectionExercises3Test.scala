@@ -113,8 +113,7 @@ class LinearCollectionExercises3Test extends AnyFunSpec with TypeCheckedTripleEq
              (Person("Karen Page",              27), 2),
              (Person("Franklin 'Foggy' Nelson", 31), 3),
              (Person("Claire Temple",           32), 4),
-             (Person("Wilson Fisk",             42), 5),
-             (Person("Elektra Natchios",        27), 6)))
+             (Person("Wilson Fisk",             42), 5)))
       )
     }
   }
