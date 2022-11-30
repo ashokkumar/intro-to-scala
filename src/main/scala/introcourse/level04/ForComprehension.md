@@ -71,3 +71,26 @@ val result2 =
 
 println(result2)
 ```
+
+## For comprehension as flatMap, flatMap and Map
+
+```scala
+val one = Option(1)
+val two = Option(2)
+val three = Option(3)
+
+//How would you add one + two + three to return Option(6)?
+
+one.flatMap{ o =>
+  two.flatMap{ t =>
+    three.map{ th => th + t + o}
+  }
+}
+
+val x = for {
+  o <- one  //flatMap
+  t <- two  //flatMap
+  th <- three //Map
+} yield o + t + th
+
+```
