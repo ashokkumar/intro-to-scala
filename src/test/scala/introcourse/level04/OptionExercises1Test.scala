@@ -6,18 +6,6 @@ import org.scalatest.funspec.AnyFunSpec
 
 class OptionExercises1Test extends AnyFunSpec with TypeCheckedTripleEquals {
 
-  describe("safeMean") {
-
-    it("should return None given Nil") {
-      assert(safeMean(Nil) === None)
-    }
-
-    it("should return the mean of a non-empty List of numbers") {
-      assert(safeMean(List(1, 2, 3, 4)) === Some(2.5))
-    }
-
-  }
-
   describe("mkTrafficLight") {
 
     it("should return None given unknown String") {

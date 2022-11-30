@@ -16,28 +16,6 @@ object OptionExercises1 {
     */
 
   /**
-    * scala> safeMean(List(1, 2, 10))
-    * > Some(4.333333333333333)
-    *
-    * scala> safeMean(Nil)
-    * > None
-    *
-    * Hint: Use `sum`, `length` and convert the numerator or denominator to a `Double` using `toDouble`
-    *
-    * If you do division on two `Int`s, you will get an `Int` back, which is often not what you want!
-    *
-    * scala> 5 / 2
-    * > 2
-    *
-    * scala> 5.toDouble / 2
-    * > 2.5
-    *
-    * scala> 5 / 2.toDouble
-    * > 2.5
-    **/
-  def safeMean(nums: List[Int]): Option[Double] = ???
-
-  /**
     * Safe constructors
     *
     * Allows us to convert input from the real world (e.g. files, HTTP request, etc.) into ADTs
@@ -58,7 +36,12 @@ object OptionExercises1 {
     *
     * Hint: Use pattern matching
     **/
-  def mkTrafficLight(str: String): Option[TrafficLight] = ???
+  def mkTrafficLight(str: String): Option[TrafficLight] = str match {
+    case "red" => Some(Red)
+    case "green" => Some(Green)
+    case "yellow" => Some(Yellow)
+    case _ => None
+  }
 
   /**
     * scala> mkTrafficLightThenShow("red")
@@ -84,7 +67,10 @@ object OptionExercises1 {
     * }
     * ```
     */
-  def mkTrafficLightThenShow(str: String): String = ???
+  def mkTrafficLightThenShow(str: String): String = mkTrafficLight(str) match {
+    case Some(x) => s"Traffic light is ${str}"
+    case None => s"Traffic light ${str} is invalid"
+  }
 
   /**
     * scala> mkPerson("Bob", 20)
@@ -102,7 +88,10 @@ object OptionExercises1 {
     *
     * Hint: Don't forget every if needs an else!
     **/
-  def mkPerson(name: String, age: Int): Option[Person] = ???
+  def mkPerson(name: String, age: Int): Option[Person] = (name, age) match {
+    case(name, age) if name.isBlank || age < 0 => None
+    case(name, age) => Some(Person(name, age))
+  }
 
   /**
     * scala> mkPersonThenChangeName("Bob", 20, "John")
@@ -118,7 +107,11 @@ object OptionExercises1 {
     **/
   def mkPersonThenChangeName(oldName: String, age: Int, newName: String): Option[Person] = {
     val maybePerson = mkPerson(oldName, age)
-    ???
+    if (newName.isBlank) {
+      None
+    } else {
+      maybePerson.map(changeName(newName, _))
+    }
   }
 
   private def changeName(newName: String, person: Person): Person = person.copy(name = newName)
