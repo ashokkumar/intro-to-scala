@@ -16,28 +16,6 @@ object OptionExercises1 {
     */
 
   /**
-    * scala> safeMean(List(1, 2, 10))
-    * > Some(4.333333333333333)
-    *
-    * scala> safeMean(Nil)
-    * > None
-    *
-    * Hint: Use `sum`, `length` and convert the numerator or denominator to a `Double` using `toDouble`
-    *
-    * If you do division on two `Int`s, you will get an `Int` back, which is often not what you want!
-    *
-    * scala> 5 / 2
-    * > 2
-    *
-    * scala> 5.toDouble / 2
-    * > 2.5
-    *
-    * scala> 5 / 2.toDouble
-    * > 2.5
-    **/
-  def safeMean(nums: List[Int]): Option[Double] = ???
-
-  /**
     * Safe constructors
     *
     * Allows us to convert input from the real world (e.g. files, HTTP request, etc.) into ADTs

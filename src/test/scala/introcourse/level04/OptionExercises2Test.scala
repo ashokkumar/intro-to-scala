@@ -44,20 +44,7 @@ class OptionExercises2Test extends AnyFunSpec with TypeCheckedTripleEquals {
     }
 
   }
-
-  describe("findJobDescriptionGivenJobId2") {
-
-    it("should return None if jobId is not in jobsDatabase") {
-      assert(findJobDescriptionGivenJobId2(1024) === None)
-    }
-
-    it("should return description for Job with jobId") {
-      assert(findJobDescriptionGivenJobId2(1) === Some("Expert in their field"))
-      assert(findJobDescriptionGivenJobId2(2) === Some("Build things for people"))
-    }
-
-  }
-
+  
   describe("findJobDescriptionGivenJobIdOrElse1") {
 
     it("should return `does not exist` message if jobId is not in jobsDatabase") {

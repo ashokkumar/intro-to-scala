@@ -59,31 +59,9 @@ object OptionExercises2 {
     * scala> findJobDescriptionGivenJobId1(100)
     * > None
     *
-    * Hint: Use `findJobById` and then pattern match
     */
   def findJobDescriptionGivenJobId1(jobId: JobId): Option[String] = ???
-
-  /**
-    * Same as above, but use .map instead
-    *
-    * If you see a `case None => None` in a pattern matching block,
-    * you can always refactor it:
-    *
-    * ```
-    * maybeSomething match {
-    *   case Some(a) => Some(s"Got some $a")
-    *   case None => None
-    * }
-    * ```
-    *
-    * becomes
-    *
-    * ```
-    * maybeSomething.map(a => s"Got some $a")
-    * ```
-    */
-  def findJobDescriptionGivenJobId2(jobId: JobId): Option[String] = ???
-
+  
   /**
     * scala> findJobDescriptionGivenJobIdOrElse1(1)
     * > "Expert in their field"
