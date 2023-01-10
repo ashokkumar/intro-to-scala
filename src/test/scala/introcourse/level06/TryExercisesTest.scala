@@ -8,8 +8,8 @@ import org.scalatest.funspec.AnyFunSpec
 import scala.util.{Failure, Success}
 
 class TryExercisesTest extends AnyFunSpec with TypeCheckedTripleEquals {
-  // TODO: Remove this import once you've defined Employee data type in TryExercuses
-  import TryTestTypes._
+//  // TODO: Remove this import once you've defined Employee data type in TryExercuses
+//  import TryTestTypes._
 
   describe("parseIntSafe") {
 

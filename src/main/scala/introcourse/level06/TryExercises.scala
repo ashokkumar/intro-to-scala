@@ -45,7 +45,7 @@ object TryExercises {
     *
     * Hint: Use `Try` and `parseInt`
     */
-  def parseIntSafe(str: String): Try[Int] = ???
+  def parseIntSafe(str: String): Try[Int] = Try(parseInt(str))
 
   /**
     * scala> parseBooleanSafe("true")
@@ -56,7 +56,7 @@ object TryExercises {
     *
     * Hint: Use .toBoolean to convert a String to a Boolean
     **/
-  def parseBooleanSafe(str: String): Try[Boolean] = ???
+  def parseBooleanSafe(str: String): Try[Boolean] = Try(str.toBoolean)
 
 
   /**
@@ -71,7 +71,7 @@ object TryExercises {
 
   def increment(str: String): Try[Int] = {
     val errorOrInt: Try[Int] = parseIntSafe(str)
-    ???
+    errorOrInt.map(_ + 1)
   }
 
   /**
@@ -85,8 +85,8 @@ object TryExercises {
 
   def tryToEither[A](tryA: Try[A]): Either[TryError, A] =
     tryA match {
-      case Success(a) => ???
-      case Failure(throwable) => ???
+      case Success(a) => Right(a)
+      case Failure(throwable) => Left(TryError(throwable.getMessage))
     }
 
   /**
@@ -99,8 +99,8 @@ object TryExercises {
     */
   def tryToOption[A](tryA: Try[A]): Option[A] =
     tryA match {
-      case Success(a) => ???
-      case Failure(throwable) => ???
+      case Success(a) => Some(a)
+      case Failure(throwable) => None
     }
 
   /**
@@ -110,7 +110,7 @@ object TryExercises {
     * 3. hasDirectReports: Boolean
     */
 
-  case class Employee()
+  case class Employee(name: String, age: Int, hasDirectReports: Boolean)
 
   /**
     * Now remove `import TryTestTypes._` from `TryExercisesTest.scala`
@@ -135,8 +135,17 @@ object TryExercises {
     */
   def mkEmployee(csv: String): Either[TryError, Employee] =
     csv.split(",") match {
-      case Array(nameStr, ageStr, hasDirectReportsStr) => ???
-      case _ => ???
+      case Array(nameStr, ageStr, hasDirectReportsStr) => {
+        val employeeOrError: Try[Employee] = for {
+          age <- parseIntSafe(ageStr)
+          hasDirectReport <- parseBooleanSafe(hasDirectReportsStr)
+        } yield (Employee(nameStr, age, hasDirectReport))
+        employeeOrError match {
+          case Failure(exception) => Left(TryError(exception.getMessage))
+          case Success(value) => Right(value)
+        }
+      }
+      case _ => Left(TryError("CSV has wrong number of fields. Expected 3."))
     }
 
   /**
@@ -147,7 +156,7 @@ object TryExercises {
     */
   def fileToEmployees(filename: String): List[Either[TryError, Employee]] = {
     val lines: List[String] = io.Source.fromFile(filename).getLines().toList
-    ???
+    lines.map(mkEmployee)
   }
 
 }
