@@ -14,15 +14,15 @@ import LogParser._
 object Main {
 
   def main(args: Array[String]): Unit = {
-
+//    println("I am running")
     args match {
       case Array(filepath) =>
 
         // Read from file
         val fileContent: String = Source.fromFile(filepath).getLines().mkString("\n")
-
+//        println(s"this is file content ${fileContent}")
         // Implement `printErrorsOverSeverity` and then call it from here
-        ???
+        printErrorsOverSeverity(fileContent, 0)
 
       case _ => println("""sbt "runMain introcourse.level07.Main src/main/resources/logfile.csv"""")
     }
@@ -39,6 +39,8 @@ object Main {
     * Hint: Use println to write to stdout
     */
   @SuppressWarnings(Array("org.wartremover.warts.Any"))
-  private def printErrorsOverSeverity(logFile: String, severity: Int): Unit = ???
+  private def printErrorsOverSeverity(logFile: String, severity: Int): Unit = {
+    showErrorsOverSeverity(logFile, severity).map(println)
+  }
 
 }

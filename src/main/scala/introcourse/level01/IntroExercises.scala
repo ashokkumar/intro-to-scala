@@ -57,7 +57,7 @@ object IntroExercises {
     * What does the return type of this function tell us about
     * what it can do once implemented?
     */
-  def pandora(x: Int): Unit = return
+  def pandora(x: Int): Unit = println("Hello")
 
   /**
     * scala> timesTwoIfEven(4)

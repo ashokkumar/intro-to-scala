@@ -36,6 +36,9 @@ object LogParser {
     * - Error with (severity: Int)
     */
   sealed trait LogLevel
+  case object Info extends LogLevel
+  case object Warning extends LogLevel
+  case class Error(severity: Int) extends LogLevel
 
   /**
     * Now create an ADT for `LogMessage`, where `LogMessage` can be one of two possibilities:
@@ -44,7 +47,11 @@ object LogParser {
     */
   type Timestamp = Int
 
+  type Message = String
+
   sealed trait LogMessage
+  case class KnownLog(logLevel: LogLevel, timestamp: Timestamp, message: Message) extends LogMessage
+  case class UnknownLog(message: Message) extends LogMessage
 
  /**
    * Once you have defined your data types, remove `import Types._` from
@@ -76,12 +83,16 @@ object LogParser {
     val fields = str.split(",").toList
     val optLog: Option[LogMessage] = fields match {
       case List("I", timestampStr, message) =>
-        parseIntOption(timestampStr).map(timestamp => ???)
-      case _ => ??? // Add more cases
+        parseIntOption(timestampStr).map(timestamp => KnownLog(Info, timestamp, message))
+      case List("W", timestampStr, message) =>
+        parseIntOption(timestampStr).map(timestamp => KnownLog(Warning, timestamp, message))
+      case List("E", severity, timestampStr, message) => for {
+        timestamp <- parseIntOption(timestampStr)
+        severity <- parseIntOption(severity)
+      } yield(KnownLog(Error(severity), timestamp, message))
+      case data => Some(UnknownLog(data.mkString))
     }
-
-    // What should we do if optLog is None?
-    ???
+    optLog.getOrElse(UnknownLog(str))
   }
 
   /**
@@ -92,7 +103,11 @@ object LogParser {
     * Hint: Convert an Array to a List with .toList
     * What if we get an empty line from the fileContent?
     */
-  def parseLogFile(fileContent: String): List[LogMessage] = ???
+  def parseLogFile(fileContent: String): List[LogMessage] = fileContent match {
+    case "" => List()
+    case data => data.split("\n").toList.map(parseLog)
+  }
+
 
   /**
     * Define a function that returns only logs that are errors over the given severity level.
@@ -104,7 +119,10 @@ object LogParser {
     * scala> getErrorsOverSeverity(List(KnownLog(Error(2), 123, some error msg")), 2)
     * > List()
     **/
-  def getErrorsOverSeverity(logs: List[LogMessage], minimumSeverity: Int): List[LogMessage] = ???
+  def getErrorsOverSeverity(logs: List[LogMessage], minimumSeverity: Int): List[LogMessage] = logs.filter{l => l match {
+    case KnownLog(logLevel: Error, _, _ ) => logLevel.severity > minimumSeverity
+    case _ => false
+  }}
 
   /**
     * Write a function to convert a `LogMessage` to a readable `String`.
@@ -120,17 +138,24 @@ object LogParser {
     *
     * Hint: Pattern match and use string interpolation
     **/
-  def showLogMessage(log: LogMessage): String = ???
+  def showLogMessage(log: LogMessage): String = log match {
+    case KnownLog(Error(severity), timestamp, message) => s"Error ${severity} (${timestamp}) ${message}"
+    case KnownLog(Info, timestamp, message) => s"Info (${timestamp}) ${message}"
+    case KnownLog(Warning, timestamp, message) => s"Warning (${timestamp}) ${message}"
+    case UnknownLog(message) => s"Unknown log: ${message}"
+  }
 
-  /**
-    * Use `showLogMessage` on error logs with severity greater than the given `severity`.
-    *
-    * scala> showErrorsOverSeverity(logFile, 2)
-    * > List("Error 5 (158) some strange error")
-    *
-    * Hint: Use `parseLogFile`, `getErrorsOverSeverity` and `showLogMessage`
-    **/
-  def showErrorsOverSeverity(fileContent: String, severity: Int): List[String] = ???
+      /**
+        * Use `showLogMessage` on error logs with severity greater than the given `severity`.
+        *
+        * scala> showErrorsOverSeverity(logFile, 2)
+        * > List("Error 5 (158) some strange error")
+        *
+        * Hint: Use `parseLogFile`, `getErrorsOverSeverity` and `showLogMessage`
+        * */
+      def showErrorsOverSeverity(fileContent: String, severity: Int): List[String] =
+        getErrorsOverSeverity(parseLogFile(fileContent), severity).map(showLogMessage)
+
 
   /**
     * Now head over to `Main.scala` in the same package to complete the rest of the program.
